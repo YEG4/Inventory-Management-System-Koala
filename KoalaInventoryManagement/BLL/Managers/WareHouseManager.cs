@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using KoalaInventoryManagement.Models.Context;
+using KoalaInventoryManagement.Models;
+using KoalaInventoryManagement.BLL.Interfaces;
 
-namespace KoalaInventoryManagement.Models.Managers
+namespace KoalaInventoryManagement.BLL.Managers
 {
     public class WareHouseManager : IManager<WareHouse>
     {
@@ -15,7 +17,7 @@ namespace KoalaInventoryManagement.Models.Managers
             try
             {
                 context?.WareHouses?.Add(item);
-                if(context?.Entry(item).State == EntityState.Added)
+                if (context?.Entry(item).State == EntityState.Added)
                 {
                     context.SaveChanges();
                     return true;
@@ -71,7 +73,7 @@ namespace KoalaInventoryManagement.Models.Managers
         {
             try
             {
-                List<WareHouse> wareHouses 
+                List<WareHouse> wareHouses
                     = context?.WareHouses?.ToList() ?? new List<WareHouse>();
 
                 return wareHouses;
@@ -107,7 +109,7 @@ namespace KoalaInventoryManagement.Models.Managers
             try
             {
                 WareHouse? older = context?.WareHouses?.Find(item.ID);
-                if(older != null)
+                if (older != null)
                 {
                     older.Name = item.Name;
                     if (context?.Entry(older)?.State == EntityState.Modified)

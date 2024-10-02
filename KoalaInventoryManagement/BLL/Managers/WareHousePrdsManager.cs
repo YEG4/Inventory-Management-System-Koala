@@ -1,10 +1,11 @@
-﻿
+﻿using KoalaInventoryManagement.BLL.Interfaces;
+using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace KoalaInventoryManagement.Models.Managers
+namespace KoalaInventoryManagement.BLL.Managers
 {
-    public class WareHousePrdsManager
+    public class WareHousePrdsManager : IWareHousePrds
     {
         InventoryDBContext context;
 
@@ -40,7 +41,7 @@ namespace KoalaInventoryManagement.Models.Managers
         {
             try
             {
-                WareHouseProduct? wareHousePrd 
+                WareHouseProduct? wareHousePrd
                     = context?.WareHouseProducts?.Find(productID, WareHouseID);
 
                 if (wareHousePrd == null)
@@ -139,7 +140,7 @@ namespace KoalaInventoryManagement.Models.Managers
         {
             try
             {
-                WareHouseProduct? older 
+                WareHouseProduct? older
                     = context?.WareHouseProducts?.Find(item.ProductID, item.WareHouseID);
 
                 if (older != null)

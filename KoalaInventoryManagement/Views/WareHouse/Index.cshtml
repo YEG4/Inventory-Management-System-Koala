@@ -1,0 +1,25 @@
+﻿@model List<WareHouse>
+
+@{
+    ViewData["Title"] = "Index";
+    int counter = 0;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(WareHouse wareHouse in Model)
+        {
+            <tr>
+                <th scope="row">@(++counter)</th>
+                <td colspan="2">@wareHouse.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

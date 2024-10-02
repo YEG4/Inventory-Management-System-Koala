@@ -1,4 +1,4 @@
-﻿namespace KoalaInventoryManagement.Models.Managers
+﻿namespace KoalaInventoryManagement.BLL.Interfaces
 {
     public interface IManager<T>
     {

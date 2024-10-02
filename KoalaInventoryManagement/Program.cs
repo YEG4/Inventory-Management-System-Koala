@@ -1,3 +1,6 @@
+using KoalaInventoryManagement.BLL.Interfaces;
+using KoalaInventoryManagement.BLL.Managers;
+using KoalaInventoryManagement.Models;
 using KoalaInventoryManagement.Models.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +22,12 @@ namespace KoalaInventoryManagement
                     builder.Configuration.GetConnectionString("DefaultConnectionString")
                     )
                 );
+
+            //BLL --> WareHouseManager
+            builder.Services.AddScoped<IManager<WareHouse>, WareHouseManager>();
+
+            //BLL --> WareHousePrdsManager
+            builder.Services.AddScoped<IWareHousePrds, WareHousePrdsManager>();
             #endregion
 
             var app = builder.Build();
