@@ -32,6 +32,12 @@
                 </a>
             </li>
             <li>
+                <a href="/Inventory" class="@(ViewContext.RouteData.Values["controller"].ToString() == "inventory" ? "active" : "")">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
                 <a href="/Sales" class="@(ViewContext.RouteData.Values["controller"].ToString() == "Sales" ? "active" : "")">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>Sales</span>

@@ -53,5 +53,21 @@ namespace Inventory.Repository.Repositories
 
             }
         }
+
+        public IEnumerable<Product> GetAll(string includeProperties = "")
+        {
+            IQueryable<Product> query = _context.Products;
+
+            // Include related entities dynamically
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return query.ToList();
+        }
     }
 }
