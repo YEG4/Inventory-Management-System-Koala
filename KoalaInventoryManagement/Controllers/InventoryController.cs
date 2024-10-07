@@ -76,20 +76,40 @@ namespace KoalaInventoryManagement.Controllers
             return Ok(ProductName);
         }
 
+        
         [HttpPost]
-        public IActionResult AddNewProduct()
+        public IActionResult AddProduct(string Name, string Description, double Price, int Current_Stock, int Minimum_Stock, int Maximum_Stock, int Supplier, int Category)
         {
-            var addNewProduct = _unitOfWork.Products.Add(new Models.Product{  Name = "Test", Description = "Flags Test", Price = 20, CreateAt = DateTime.Now });
-           _unitOfWork.Complete();  
-            return Ok(addNewProduct);
+            // Create a new product instance
+            var newProduct = new Models.Product
+            {
+                Name = Name,
+                Description = Description,
+                Price = Price,
+                CurrentStock = Current_Stock, 
+                MinimumStock = Minimum_Stock, 
+                MaximumStock = Maximum_Stock, 
+                SupplierId = Supplier, 
+                CategoryId = Category, 
+                CreateAt = DateTime.Now
+            };
+
+            // Add the new product to the database
+            _unitOfWork.Products.Add(newProduct);
+            _unitOfWork.Complete();
+
+
+            return RedirectToAction("Index");
         }
 
+
         [HttpGet]
-        public IActionResult DeleteProduct()
+        public IActionResult DeleteProduct(int id)
         {
-            var DeleteProduct = _unitOfWork.Products.Delete(1);
+           
+             _unitOfWork.Products.Delete(id);
             _unitOfWork.Complete();
-            return Ok(_unitOfWork.Products.GetAll());
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

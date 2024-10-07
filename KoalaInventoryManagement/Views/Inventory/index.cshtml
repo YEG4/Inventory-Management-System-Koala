@@ -31,6 +31,7 @@
                                     <th scope="col">Category</th>
                                     <th scope="col">Supplier</th>
                                     <th scope="col">WareHouse</th>
+                                    <th scope="col">CurrentStocK</th>
                                     <th scope="col">MinStock</th>
                                     <th scope="col">MaxStock</th>
                                     <th class="btn-head" scope="col">Edit</th>
@@ -44,15 +45,23 @@
                                         <td>@product.Name</td>
                                         <td>@product.Description</td>
                                         <td>@product.Price</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>@product.CurrentStock</td>
+                                        <td>@product.MinimumStock</td>
+                                        <td>@product.MaximumStock</td>
+                                        
+                                       
                                       
-                                     @*    <td class="btn-td edit">
-                                            <a onclick="openEditModalSupplier(@supplier.Id,'@supplier.Name','@supplier.Phone_Number','@supplier.Email_Address',@supplier.Rating/10)">
+                                    <td class="btn-td edit">
+                                            <a onclick="openEditModalSupplier(@product.Id,'@product.Name','@product.Description',@product.Price/10)">
                                                 <i class="fa fa-pencil color-muted"></i>
                                             </a>
-                                        </td>
+                                    </td>
                                         <td class="btn-td delete">
-                                            <a onclick="confirmDelete('@supplier.Name Supplier',@supplier.Id,1)"><i class="fa fa-close color-danger"></i></a>
-                                        </td> *@
+                                            <a onclick="confirmDelete('@product.Name Product',@product.Id)"><i class="fa fa-close color-danger"></i></a>
+                                        </td> 
                                     </tr>
                                 }
                             </tbody>
@@ -94,7 +103,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="" id="addOrEditSupplierForm">
+                <form method="post" action="/Inventory/AddProduct" id="addOrEditProductForm">
                     <input type="number" name="Id" hidden value="" />
                     <div class="form-group-row">
                         <label class="col-sm-3 col-form-label">Name</label>
@@ -104,30 +113,72 @@
                         </div>
                     </div>
                     <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Phone Number</label>
+                        <label class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <input type="text" name="Phone_Number" class="form-control"
-                                   required maxlength="20" placeholder="Phone Number" />
+                            <input type="text" name="Description" class="form-control"
+                                   required  placeholder="Description" />
                         </div>
                     </div>
                     <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Email Address</label>
+                        <label class="col-sm-3 col-form-label">Price</label>
                         <div class="col-sm-9">
-                            <input type="text" name="Email_Address" class="form-control"
-                                   maxlength="50" placeholder="Email Address" />
+                            <input type="text" name="Price" class="form-control"
+                                    placeholder="Price" />
+                        </div>
+                    </div>
+                      <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Current Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Current_Stock" class="form-control"
+                                   placeholder="Current Stock" />
+                        </div>
+                    </div>
+                      <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Minimum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Minimum_Stock" class="form-control"
+                                   placeholder="Minimum Stock" />
                         </div>
                     </div>
                     <div class="form-group-row">
-                        <label class="col-sm-3 col-form-label">Rating</label>
-                        <div class="col-sm-9 myrange">
-                            <input type="range" id="Rating" name="Rating"
-                                   class="form-range" min="0" max="10" />
+                        <label class="col-sm-3 col-form-label">Maximum Stock</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Maximum_Stock" class="form-control"
+                                   placeholder="Maximum Stock" />
                         </div>
                     </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Supplier</label>
+                        <div class="col-sm-9">
+                            <select  name="Supplier" class="form-control">
+                                <option disabled active>Select Supplier</option>
+                                @foreach(var supplier in Model.suppliers){
+                                    <option value="@supplier.Id">@supplier.Name</option>
+                                }
+                               
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group-row">
+                        <label class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                            <select name="Category" class="form-control">
+                                <option disabled active>Select Category</option>
+                                @foreach (var category in Model.categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                  
+
+                  
                     <div class="form-group-row">
                         <div class="col-sm-10">
-                            <button hidden type="submit" class="btn btn-primary">
-                                Sign in
+                            <button  type="submit" class="btn btn-primary">
+                               Add
                             </button>
                         </div>
                     </div>
@@ -135,12 +186,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addOrEditSupplier">Add</button>
+                <button type="button" class="btn btn-primary" id="addOrEditProduct">Add</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Product Modal End-->
 @section Scripts {
-    <script src="/js/Suppliers/Suppliers.js"></script>
+    <script src="/js/Inventory/Inventory.js"></script>
 }
